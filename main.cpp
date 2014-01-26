@@ -66,12 +66,18 @@ Sudoku::Sudoku()
 //menu
 void Sudoku:: input()
 {
-	cout<<"====================SUDOKU SOLVER======================="<<endl<<endl<<endl;
-	cout<<"MENU PILIHAN :"<<endl;
-	cout<<"1. CONTOH PROGRAM"<<endl;
-	cout<<"2. INPUT SELURUH ANGKA "<<endl;
-	cout<<"3. keluar"<<endl;
-	int pilihan;
+    int pilihan; 
+     
+    system("cls");
+	cout<<"==================== SUDOKU SOLVER ======================="<<endl<<endl<<endl;
+	cout<<"\t\t-------------------------"<<endl;
+    cout<<"\t\t|     MENU PILIHAN      |"<<endl;
+	cout<<"\t\t-------------------------"<<endl;
+	cout<<"\t\t| 1. Contoh Program     |"<<endl;
+	cout<<"\t\t| 2. Input Sudoku       |"<<endl;
+	cout<<"\t\t| 3. keluar             |"<<endl;
+	cout<<"\t\t-------------------------"<<endl;
+	
 	cin>>pilihan;
 	while(pilihan<1 || pilihan>3)
 	{
@@ -90,7 +96,7 @@ void Sudoku:: input()
 			break;
 		case 3:
 			exit(0);
-			
+            			
 		default:
         error(3);
 	}
@@ -164,8 +170,10 @@ void Sudoku::input_pola()
 	}
        if(h=='y')
           sample(1);
+    system("PAUSE");
+    system("cls");
           
-    cout<<"Masukan Pola Sudoku('B' or 'b' SEBAGAI BLANK/KOSONG): "<<endl;
+    cout<<"Masukan Pola Sudoku('B' atau 'b' = Blank (kosong)): "<<endl<<endl;
     cout<<"Sudoku yang di masukkan 9 x 9"<<endl;
 	for(int i=0;i<9;i++)
 	for(int j=0;j<9;j++)
@@ -219,7 +227,7 @@ bool Sudoku::initProcess()
 void Sudoku:: sample(int choice)
 {
     system("cls");
-	cout<<"CONTOH INPUT: "<<endl<<endl;
+	cout<<"Contoh Input : "<<endl<<endl;
 	if(choice==1)
 	{
 		cout<<      "B B B 5 8 B B B B\t\t\tbbb58bbbb\n"
@@ -309,6 +317,7 @@ void Sudoku::error(const int &errorcode, const int &row, const int &col)
 	}
 
 }
+
 //program utama
 int main(int argc, char *argv[])
 {
