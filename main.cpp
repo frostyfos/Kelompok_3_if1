@@ -63,8 +63,7 @@ void Sudoku::inputGrid()
 	{
 		cin>>h;
 		if(h!='0' && isdigit(h))
-			grid.at(i).at(j)=int(h-'1');                    //any non digit printable character may be used to indicate blank
-
+			grid.at(i).at(j)=int(h-'1');
 	}
 }
 
@@ -108,7 +107,7 @@ bool Sudoku::initProcess()
 
 void Sudoku::output()
 {
-showGrid(grid);
+   showGrid(grid);
 }
 
 //program utama
