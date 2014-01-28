@@ -21,33 +21,6 @@ struct trio
 vector<vector<int> >grid;
 bool done;
 
-//program utama
-int main(int argc, char *argv[])
-{
-    cout<<"====================SUDOKU SOLVER======================="<<endl<<endl<<endl;
-    inputGrid();
-    initProcess();
-    output();
-    system("PAUSE");
-    return EXIT_SUCCESS;
-}
-
-//fungsi input
-void inputGrid()
-{
-   	char h;
-    cout<<"Masukan Pola Sudoku('B' or 'b' SEBAGAI BLANK/KOSONG): "<<endl;
-    cout<<"Sudoku yang di masukkan 9 x 9"<<endl;
-	for(int i=0;i<9;i++)
-	for(int j=0;j<9;j++)
-	{
-		cin>>h;
-		if(h!='0' && isdigit(h))
-			grid.at(i).at(j)=int(h-'1');                    //any non digit printable character may be used to indicate blank
-
-	}
-}
-
 //fungsi menampilkan petak 9x9
 void showGrid(const vector<vector<int> > &somegrid)
 {
@@ -65,8 +38,39 @@ void showGrid(const vector<vector<int> > &somegrid)
      }
      cout<<endl;
 }
+
+class Sudoku
+{
+	vector<vector<int> > grid;
+	bool done;
+
+	public:
+	void inputGrid();
+	void process(vector<vector<int> > thegrid, int row, int col, int val);
+	inline void output();
+
+    bool initProcess();
+};
+
+//fungsi input
+void Sudoku::inputGrid()
+{
+   	char h;
+    cout<<"Masukan Pola Sudoku('B' or 'b' SEBAGAI BLANK/KOSONG): "<<endl;
+    cout<<"Sudoku yang di masukkan 9 x 9"<<endl;
+	for(int i=0;i<9;i++)
+	for(int j=0;j<9;j++)
+	{
+		cin>>h;
+		if(h!='0' && isdigit(h))
+			grid.at(i).at(j)=int(h-'1');                    //any non digit printable character may be used to indicate blank
+
+	}
+}
+
+
 //area proses
-void process(vector<vector<int> > thegrid, int row, int col, int val)
+void Sudoku::process(vector<vector<int> > thegrid, int row, int col, int val)
 {
      thegrid.at(row).at(col)=val;
      if(row==8 && col==8)
@@ -86,7 +90,7 @@ void process(vector<vector<int> > thegrid, int row, int col, int val)
 }
 
 
-bool initProcess()
+bool Sudoku::initProcess()
 {
 	for(int i=0;i<9;i++)
 	for(int j=0;j<9;j++)
@@ -102,7 +106,19 @@ bool initProcess()
 	return true;
 }
 
-void output()
+void Sudoku::output()
 {
 showGrid(grid);
+}
+
+//program utama
+int main(int argc, char *argv[])
+{
+    cout<<"====================SUDOKU SOLVER======================="<<endl<<endl<<endl;
+    Sudoku game;
+    game.inputGrid();
+    game.initProcess();
+    game.output();
+    system("PAUSE");
+    return EXIT_SUCCESS;
 }
