@@ -13,4 +13,7 @@ sani Saefurochman (10112452)
 ---------------------------------------
 		update
 ---------------------------------------
-1. tambah gitignore (belum dicek, sok ah yang bisa bantuin)
+1. tambah gitignore (tinggal cek gitignore)
+2. bro program di cek lagi masih ada yang aneh, pas input ga bisa di copas
+   (cape juga kalo ngetik 81 kali :P)
+3. sama benerin lagi ya
