@@ -13,4 +13,4 @@ sani Saefurochman (10112452)
 ---------------------------------------
 		update
 ---------------------------------------
-1. tambah gitignore (belum dicek)
+1. tambah gitignore (belum dicek, sok ah yang bisa bantuin)
