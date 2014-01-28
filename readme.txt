@@ -17,3 +17,6 @@ sani Saefurochman (10112452)
 2. bro program di cek lagi masih ada yang aneh, pas input ga bisa di copas
    (cape juga kalo ngetik 81 kali :P)
 3. sama benerin lagi ya
+
+
+*NOTE : yang make codeblocks kalo gabisa system("cls") tambah #include <stdlib.h>
