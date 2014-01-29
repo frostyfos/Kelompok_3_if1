@@ -1,7 +1,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
-#include<iomanip>
+#include <iomanip>
+#include<sstream>
 
 using namespace std;
 
@@ -25,7 +26,8 @@ void tampil(const vector<vector<int> > &somegrid)
 			(n!=INFINITY)?cout<<n+1: cout<<'B';
      		(j%3==2)? cout<<"  ":cout<<" ";
 		}
-		if(i%3==2)  cout<<endl;
+		if(i%3==2)  
+			cout<<endl;
      	cout<<endl;
      }
      cout<<endl;
@@ -37,14 +39,15 @@ class Sudoku
 	bool done;
 
 	public:
-    Sudoku();
-	void input_pola();
-	void process(vector<vector<int> > thegrid, int row, int col, int val);
-	inline void output();
-
-    bool initProcess();
-    inline bool isValid(const int &row, const int &col, const  int &val);
-	bool valid(const vector<vector<int> > &thegrid, const int &row, const int &col, const int &val);
+    	Sudoku();
+    	void input();
+    	void contoh_sudoku();
+		void input_pola();
+		void process(vector<vector<int> > thegrid, int row, int col, int val);
+		inline void output();
+		bool initProcess();
+   	 	inline bool isValid(const int &row, const int &col, const  int &val);
+		bool valid(const vector<vector<int> > &thegrid, const int &row, const int &col, const int &val);
 };
 
 Sudoku::Sudoku()
@@ -53,6 +56,86 @@ Sudoku::Sudoku()
 	for(int i=0;i<9;i++)
 	grid.push_back(arow);
 	done=false;
+}
+
+//menu
+void Sudoku:: input()
+{
+	system("cls");
+	cout<<"====================SUDOKU SOLVER======================="<<endl<<endl<<endl;
+	cout<<"MENU PILIHAN :"<<endl;
+	cout<<"1. CONTOH PROGRAM"<<endl;
+	cout<<"2. INPUT SELURUH ANGKA "<<endl;
+	cout<<"3. keluar"<<endl;
+	int pilihan;
+	cin>>pilihan;
+	while(pilihan<1 || pilihan>3)
+	{
+		cout<<"Menu hanya 1,2,3 (1<=VAL<=3)"<<endl;
+		cin>>pilihan;
+	}
+	switch(pilihan)
+	{
+		case 1:
+			system("cls");
+        	contoh_sudoku();
+			break;
+		case 2:
+        	system("cls");
+			input_pola();
+			break;
+		case 3:
+			exit(0);
+	}
+}
+
+//contoh implisit sudoku
+void Sudoku:: contoh_sudoku()
+{
+	cout<<"Contoh Input : ";
+    string str=" 26 "      
+    "1 4 5 "	
+	"1 5 8 "
+	"2 3 1 "
+	"2 9 7 "
+	"3 1 3 "
+	"3 6 4 "
+	"3 7 9 "
+	"3 8 5 "
+	"3 9 2 "
+	"4 1 4 "
+	"4 5 7 "
+	"4 7 8 "
+	"5 1 9 "
+	"5 9 5 "
+	"6 3 2 "
+	"6 5 1 "
+	"6 9 6 "
+	"7 1 1 "
+	"7 2 2 "
+	"7 3 3 "
+	"7 4 7 "
+	"7 9 9 "
+	"8 1 6 "
+	"8 7 4 "
+	"9 5 5 "
+	"9 6 2 " ;
+    istringstream istr(str);
+	cout<<"Posisi yang diketahui : ";
+	int n;
+	istr>>n;
+	cout<<n<<endl;
+
+	trio sample;
+	for(int i=0;i<n;i++)
+	{
+		istr>>sample.row>>sample.col>>sample.value;
+		sample.row--;
+		sample.col--;
+		sample.value--;
+	}
+	cout<<"GRID input Sudoku :(B = Blank / kosong)"<<endl;
+	tampil(grid);
 }
 
 //fungsi input
@@ -74,16 +157,15 @@ void Sudoku::input_pola()
 //area proses
 void Sudoku::process(vector<vector<int> > thegrid, int row, int col, int val)
 {
-     if(done || !isValid(row,col,val) || !(valid(thegrid,row,col,val))) return;
-     
+     if(done || !isValid(row,col,val) || !(valid(thegrid,row,col,val))) 
+	 	return; 
      thegrid.at(row).at(col)=val;
      if(row==8 && col==8)
      {
-               cout<<"Selesai: "<<endl;
-               grid=thegrid;
-               done=true;
+        cout<<"Selesai: "<<endl;
+        grid=thegrid;
+        done=true;
      }
-
      bool flag=false;
      for(int i=0;i<9;i++)
      if(col<8)
@@ -91,7 +173,6 @@ void Sudoku::process(vector<vector<int> > thegrid, int row, int col, int val)
         else
            process(thegrid,row+1,0,i);
 }
-
 
 bool Sudoku::initProcess()
 {
@@ -103,9 +184,8 @@ bool Sudoku::initProcess()
 	
 		grid.at(i).at(j)=temp;
 	}
-
-     for(int i=0;i<9;i++)
-	process(grid, 0, 0, i);
+	for(int i=0;i<9;i++)
+		process(grid, 0, 0, i);
 	return true;
 }
 
@@ -123,20 +203,18 @@ bool Sudoku:: isValid(const int &row,const int &col, const int &value)
 
 bool Sudoku:: valid(const vector<vector<int> > &thegrid, const int &row, const int &col, const int &val)
 {
-     if(thegrid.at(row).at(col)==val) return true;
+    if(thegrid.at(row).at(col)==val) 
+		return true;
 	if(thegrid.at(row).at(col)!=INFINITY)
-	return false;
-
+		return false;
 	for(int i=0;i<9;i++)
 	if(thegrid.at(i).at(col)==val)
 	return false;
-
 	for(int j=0;j<9;j++)
 	{
        if(thegrid.at(row).at(j)==val)
        return false;
     }
-
 	int m,n;
 	m=(row/3)*3;
 	n=(col/3)*3;
@@ -149,14 +227,11 @@ bool Sudoku:: valid(const vector<vector<int> > &thegrid, const int &row, const i
 	return true;
 }
 
-
 //program utama
 int main(int argc, char *argv[])
 {
-    cout<<"====================SUDOKU SOLVER======================="<<endl<<endl<<endl;
     Sudoku game;
-
-    game.input_pola();
+    game.input();
     cout<<endl<<"PROCESSING . . ."<<endl<<endl;
     
     if(game.initProcess())
