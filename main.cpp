@@ -2,7 +2,9 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
-#include<sstream>
+#include <sstream>
+#include <cctype>
+#include <stdexcept>
 
 using namespace std;
 
@@ -61,7 +63,6 @@ Sudoku::Sudoku()
 //menu
 void Sudoku:: input()
 {
-	system("cls");
 	cout<<"====================SUDOKU SOLVER======================="<<endl<<endl<<endl;
 	cout<<"MENU PILIHAN :"<<endl;
 	cout<<"1. CONTOH PROGRAM"<<endl;
@@ -71,7 +72,7 @@ void Sudoku:: input()
 	cin>>pilihan;
 	while(pilihan<1 || pilihan>3)
 	{
-		cout<<"Menu hanya 1,2,3 (1<=VAL<=3)"<<endl;
+		cout<<"Menu hanya 1,2,3"<<endl;
 		cin>>pilihan;
 	}
 	switch(pilihan)
@@ -230,12 +231,25 @@ bool Sudoku:: valid(const vector<vector<int> > &thegrid, const int &row, const i
 //program utama
 int main(int argc, char *argv[])
 {
-    Sudoku game;
-    game.input();
-    cout<<endl<<"PROCESSING . . ."<<endl<<endl;
-    
-    if(game.initProcess())
-    game.output();
+	while(true)
+	{
+		try
+		{
+			Sudoku game;
+    		game.input();
+    		cout<<endl<<"PROCESSING . . ."<<endl<<endl;
+    		if(game.initProcess())
+    			game.output();
+		}
+		catch(out_of_range)
+		{
+			cout<<"Out of Range"<<endl;
+		}
+		catch(...)
+		{
+			cout<<"Error"<<endl;
+		}
+	}
     system("PAUSE");
     return EXIT_SUCCESS;
 }
