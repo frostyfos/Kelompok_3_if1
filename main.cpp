@@ -46,6 +46,7 @@ class Sudoku
 		void process(vector<vector<int> > thegrid, int row, int col, int val);
 		inline void output();
 		bool initProcess();
+		void sample(int choice);
    	 	inline bool isValid(const int &row, const int &col, const  int &val);
 		bool valid(const vector<vector<int> > &thegrid, const int &row, const int &col, const int &val);
 };
@@ -141,7 +142,17 @@ void Sudoku:: contoh_sudoku()
 //fungsi input
 void Sudoku::input_pola()
 {
+   	cout<<"Tampilkan Contoh Input?(y/n)"<<endl;
    	char h;
+   	cin>>h;
+   	h=tolower(h);
+   	while(!(h=='y' || h=='n'))
+   	{
+          cin>>h;
+	}
+       if(h=='y')
+          sample(1);
+          
     cout<<"Masukan Pola Sudoku('B' or 'b' SEBAGAI BLANK/KOSONG): "<<endl;
     cout<<"Sudoku yang di masukkan 9 x 9"<<endl;
 	for(int i=0;i<9;i++)
@@ -187,6 +198,25 @@ bool Sudoku::initProcess()
 	for(int i=0;i<9;i++)
 		process(grid, 0, 0, i);
 	return true;
+}
+
+void Sudoku:: sample(int choice)
+{
+    system("cls");
+	cout<<"CONTOH INPUT: "<<endl<<endl;
+	if(choice==1)
+	{
+		cout<<      "B B B 5 8 B B B B\t\t\tbbb58bbbb\n"
+					"B B 1 B B B B B 7\t\t\tbb1bbbbb7\n"
+					"3 B B B B 4 9 5 2\t\t\t3bbbb4952\n"
+					"4 B B B 7 B 8 B B\t\t\t4bbb7b8bb\n"
+					"9 B B B B B B B 5\t   or   \t9bbbbbbb5\n"
+					"B B 2 B 1 B B B 6\t\t\tbb2b1bbb6\n"
+					"1 2 3 7 B B B B 9\t\t\t1237bbbb9\n"
+					"6 B B B B B 4 B B\t\t\t6bbbbb4bb\n"
+					"B B B B 5 2 B B B\t\t\tbbbb52bbb\n";
+					for(int i=0;i<3;i++) cout<<endl;
+		}
 }
 
 void Sudoku::output()
