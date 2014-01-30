@@ -47,10 +47,12 @@ class Sudoku
 		void input_pola();
 		void process(vector<vector<int> > thegrid, int row, int col, int val);
 		inline void output();
+		void error(const int &errorcode, const int &row=-1, const int &col=-1);
 		bool initProcess();
 		void sample(int choice);
    	 	inline bool isValid(const int &row, const int &col, const  int &val);
 		bool valid(const vector<vector<int> > &thegrid, const int &row, const int &col, const int &val);
+        inline bool cek_trio(const trio &sample);
 };
 
 Sudoku::Sudoku()
@@ -88,6 +90,9 @@ void Sudoku:: input()
 			break;
 		case 3:
 			exit(0);
+			
+		default:
+        error(3);
 	}
 }
 
@@ -135,7 +140,13 @@ void Sudoku:: contoh_sudoku()
 		sample.row--;
 		sample.col--;
 		sample.value--;
-	}
+	    if(cek_trio(sample))
+	    {
+            grid.at(sample.row).at(sample.col)=sample.value;
+        }
+        else
+        i--;
+    }
 	cout<<"GRID input Sudoku :(B = Blank / kosong)"<<endl;
 	tampil(grid);
 }
@@ -193,7 +204,11 @@ bool Sudoku::initProcess()
 	{
 		int temp=grid.at(i).at(j);
 		grid.at(i).at(j)=INFINITY;
-	
+		if(!valid(grid,i,j,temp))
+		{
+            error(2);
+	        return false;
+        }
 		grid.at(i).at(j)=temp;
 	}
 	for(int i=0;i<9;i++)
@@ -222,7 +237,10 @@ void Sudoku:: sample(int choice)
 
 void Sudoku::output()
 {
-   tampil(grid);
+   if(!done)
+      error(2);
+   else
+      tampil(grid);
 }
 
 
@@ -258,6 +276,39 @@ bool Sudoku:: valid(const vector<vector<int> > &thegrid, const int &row, const i
 	return true;
 }
 
+bool Sudoku::cek_trio(const trio &sample)
+{
+	return isValid(sample.row,sample.col,sample.value);
+
+}
+
+//Validasi error 
+void Sudoku::error(const int &errorcode, const int &row, const int &col)
+{
+	cout<<"ERROR: ";
+	switch(errorcode)
+	{
+		case 0:
+		cout<<"INVALID INPUT-ULANGI "<<endl;
+		break;
+
+		case 1:
+		cout<<"Nomer invalid "<<"ROW-NO: "<<row<<"COL-NO: "<<col<<endl;
+		cout<<"Tidak Bisa Diselesaikan "<<endl;
+		break;
+
+		case 2:
+		cout<<"Tidak ada Solusi"<<endl;
+        cout<<"Pastikan Puzzle yang dimasukkan benar!!"<<endl<<endl;
+		break;
+
+		default:
+		cout<<"ERROR"<<endl;
+		system("pause");
+		exit(1);
+	}
+
+}
 //program utama
 int main(int argc, char *argv[])
 {
