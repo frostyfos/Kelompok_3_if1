@@ -162,22 +162,26 @@ void Sudoku:: contoh_sudoku()
 //fungsi input
 void Sudoku::input_pola()
 {
-   	cout<<"Tampilkan Contoh Input?(y/n)"<<endl;
+    gotoxy(5,2); cout<<"============================= INPUT SODUKU ============================";
+   	gotoxy(27,4); cout<<"Tampilkan Contoh Input(y/n)? ";
    	char h;
    	cin>>h;
    	h=tolower(h);
+   	//validasi
    	while(!(h=='y' || h=='n'))
    	{
-          cin>>h;
+   	    gotoxy(27,7); textcolor(RED); cout<<"Pilihan hanya ada y/n! Ulangi!"; getch();
+   	    gotoxy(27,7); clreol();
+        gotoxy(56,4); clreol(); textcolor(GREEN); cin>>h;
 	}
-       if(h=='y')
-          sample(1);
-    cout<<"Tekan enter untuk lanjut";
+    if(h=='y')
+        sample(1);
+    cout<<"\n\n\t\t\t     Tekan Enter untuk lanjut";
     system("pause > nul");
     system("cls");
-
-    cout<<"Masukan Pola Sudoku('B' atau 'b' = Blank (kosong)): "<<endl<<endl;
-    cout<<"Sudoku yang di masukkan 9 x 9"<<endl;
+    gotoxy(5,2); cout<<"============================= INPUT SODUKU ============================";
+    gotoxy(17,4); cout<<"Masukan Pola Sudoku('B' atau 'b' = Blank (kosong))";
+    gotoxy(25,5); cout<<"Sudoku yang di masukkan 9 x 9"<<endl;
 	for(int i=0;i<9;i++)
 	for(int j=0;j<9;j++)
 	{
@@ -230,20 +234,20 @@ bool Sudoku::initProcess()
 void Sudoku:: sample(int choice)
 {
     system("cls");
-	cout<<"Contoh Input : "<<endl<<endl;
+	gotoxy(5,2); cout<<"============================ CONTOH INPUT ============================"; cout<<endl<<endl;
 	if(choice==1)
 	{
-		cout<<      "B B B 5 8 B B B B\t\t\tbbb58bbbb\n"
-					"B B 1 B B B B B 7\t\t\tbb1bbbbb7\n"
-					"3 B B B B 4 9 5 2\t\t\t3bbbb4952\n"
-					"4 B B B 7 B 8 B B\t\t\t4bbb7b8bb\n"
-					"9 B B B B B B B 5\t   or   \t9bbbbbbb5\n"
-					"B B 2 B 1 B B B 6\t\t\tbb2b1bbb6\n"
-					"1 2 3 7 B B B B 9\t\t\t1237bbbb9\n"
-					"6 B B B B B 4 B B\t\t\t6bbbbb4bb\n"
-					"B B B B 5 2 B B B\t\t\tbbbb52bbb\n";
-					for(int i=0;i<3;i++) cout<<endl;
-		}
+		cout<<  "\n\n\t\tB B B 5 8 B B B B\t\t\tbbb58bbbb\n"
+                "\t\tB B 1 B B B B B 7\t\t\tbb1bbbbb7\n"
+                "\t\t3 B B B B 4 9 5 2\t\t\t3bbbb4952\n"
+                "\t\t4 B B B 7 B 8 B B\t\t\t4bbb7b8bb\n"
+                "\t\t9 B B B B B B B 5\t   atau   \t9bbbbbbb5\n"
+                "\t\tB B 2 B 1 B B B 6\t\t\tbb2b1bbb6\n"
+                "\t\t1 2 3 7 B B B B 9\t\t\t1237bbbb9\n"
+                "\t\t6 B B B B B 4 B B\t\t\t6bbbbb4bb\n"
+                "\t\tB B B B 5 2 B B B\t\t\tbbbb52bbb\n\n\n\n";
+    }
+    gotoxy(5,17); cout<<"=====================================================================";
 }
 
 void Sudoku::output()
@@ -334,6 +338,9 @@ int main(int argc, char *argv[])
     		cout<<endl<<"PROCESSING . . ."<<endl<<endl;
     		if(game.initProcess())
     			game.output();
+            cout<<"   ========================================================================\n\n";
+            cout<<"\t\t\t   Tekan Enter untuk kembali";
+            system("pause > nul");
 		}
 		catch(out_of_range)
 		{
