@@ -5,6 +5,7 @@
 #include <sstream>
 #include <cctype>
 #include <stdexcept>
+#include <conio2.h>
 
 using namespace std;
 
@@ -28,7 +29,7 @@ void tampil(const vector<vector<int> > &somegrid)
 			(n!=INFINITY)?cout<<n+1: cout<<'B';
      		(j%3==2)? cout<<"  ":cout<<" ";
 		}
-		if(i%3==2)  
+		if(i%3==2)
 			cout<<endl;
      	cout<<endl;
      }
@@ -66,23 +67,24 @@ Sudoku::Sudoku()
 //menu
 void Sudoku:: input()
 {
-    int pilihan; 
-     
+    int pilihan;
     system("cls");
-	cout<<"==================== SUDOKU SOLVER ======================="<<endl<<endl<<endl;
-	cout<<"\t\t-------------------------"<<endl;
-    cout<<"\t\t|     MENU PILIHAN      |"<<endl;
-	cout<<"\t\t-------------------------"<<endl;
-	cout<<"\t\t| 1. Contoh Program     |"<<endl;
-	cout<<"\t\t| 2. Input Sudoku       |"<<endl;
-	cout<<"\t\t| 3. keluar             |"<<endl;
-	cout<<"\t\t-------------------------"<<endl;
-	
-	cin>>pilihan;
+	gotoxy(12,5); cout<<"==================== SUDOKU SOLVER =======================";
+	gotoxy(27,7); cout<<"-------------------------";
+    gotoxy(27,8); cout<<"|     MENU PILIHAN      |";
+	gotoxy(27,9); cout<<"-------------------------";
+	gotoxy(27,10); cout<<"|  1. Contoh Program    |";
+	gotoxy(27,11); cout<<"|  2. Input Sudoku      |";
+	gotoxy(27,12); cout<<"|  3. keluar            |";
+	gotoxy(27,13); cout<<"-------------------------";
+    gotoxy(12,15); cout<<"==========================================================";
+    gotoxy(30,16); cout<<"Pilihan Anda [1-3] : "; cin>>pilihan;
+    //validasi pilihan menu
 	while(pilihan<1 || pilihan>3)
 	{
-		cout<<"Menu hanya 1,2,3"<<endl;
-		cin>>pilihan;
+		gotoxy(26,18); textcolor(RED); cout<<"Pilihan hanya ada 1-3! Ulangi!"; getch();
+		gotoxy(26,18); clreol();
+		gotoxy(51,16); textcolor(GREEN); clreol(); cin>>pilihan;
 	}
 	switch(pilihan)
 	{
@@ -96,7 +98,7 @@ void Sudoku:: input()
 			break;
 		case 3:
 			exit(0);
-            			
+
 		default:
         error(3);
 	}
@@ -106,8 +108,8 @@ void Sudoku:: input()
 void Sudoku:: contoh_sudoku()
 {
 	cout<<"Contoh Input : ";
-    string str=" 26 "      
-    "1 4 5 "	
+    string str=" 26 "
+    "1 4 5 "
 	"1 5 8 "
 	"2 3 1 "
 	"2 9 7 "
@@ -160,21 +162,26 @@ void Sudoku:: contoh_sudoku()
 //fungsi input
 void Sudoku::input_pola()
 {
-   	cout<<"Tampilkan Contoh Input?(y/n)"<<endl;
+    gotoxy(5,2); cout<<"============================= INPUT SODUKU ============================";
+   	gotoxy(27,4); cout<<"Tampilkan Contoh Input(y/n)? ";
    	char h;
    	cin>>h;
    	h=tolower(h);
+   	//validasi
    	while(!(h=='y' || h=='n'))
    	{
-          cin>>h;
+   	    gotoxy(27,7); textcolor(RED); cout<<"Pilihan hanya ada y/n! Ulangi!"; getch();
+   	    gotoxy(27,7); clreol();
+        gotoxy(56,4); clreol(); textcolor(GREEN); cin>>h;
 	}
-       if(h=='y')
-          sample(1);
-    system("PAUSE");
+    if(h=='y')
+        sample(1);
+    cout<<"\n\n\t\t\t     Tekan Enter untuk lanjut";
+    system("pause > nul");
     system("cls");
-          
-    cout<<"Masukan Pola Sudoku('B' atau 'b' = Blank (kosong)): "<<endl<<endl;
-    cout<<"Sudoku yang di masukkan 9 x 9"<<endl;
+    gotoxy(5,2); cout<<"============================= INPUT SODUKU ============================";
+    gotoxy(17,4); cout<<"Masukan Pola Sudoku('B' atau 'b' = Blank (kosong))";
+    gotoxy(25,5); cout<<"Sudoku yang di masukkan 9 x 9"<<endl;
 	for(int i=0;i<9;i++)
 	for(int j=0;j<9;j++)
 	{
@@ -188,8 +195,8 @@ void Sudoku::input_pola()
 //area proses
 void Sudoku::process(vector<vector<int> > thegrid, int row, int col, int val)
 {
-     if(done || !isValid(row,col,val) || !(valid(thegrid,row,col,val))) 
-	 	return; 
+     if(done || !isValid(row,col,val) || !(valid(thegrid,row,col,val)))
+	 	return;
      thegrid.at(row).at(col)=val;
      if(row==8 && col==8)
      {
@@ -227,20 +234,20 @@ bool Sudoku::initProcess()
 void Sudoku:: sample(int choice)
 {
     system("cls");
-	cout<<"Contoh Input : "<<endl<<endl;
+	gotoxy(5,2); cout<<"============================ CONTOH INPUT ============================"; cout<<endl<<endl;
 	if(choice==1)
 	{
-		cout<<      "B B B 5 8 B B B B\t\t\tbbb58bbbb\n"
-					"B B 1 B B B B B 7\t\t\tbb1bbbbb7\n"
-					"3 B B B B 4 9 5 2\t\t\t3bbbb4952\n"
-					"4 B B B 7 B 8 B B\t\t\t4bbb7b8bb\n"
-					"9 B B B B B B B 5\t   or   \t9bbbbbbb5\n"
-					"B B 2 B 1 B B B 6\t\t\tbb2b1bbb6\n"
-					"1 2 3 7 B B B B 9\t\t\t1237bbbb9\n"
-					"6 B B B B B 4 B B\t\t\t6bbbbb4bb\n"
-					"B B B B 5 2 B B B\t\t\tbbbb52bbb\n";
-					for(int i=0;i<3;i++) cout<<endl;
-		}
+		cout<<  "\n\n\t\tB B B 5 8 B B B B\t\t\tbbb58bbbb\n"
+                "\t\tB B 1 B B B B B 7\t\t\tbb1bbbbb7\n"
+                "\t\t3 B B B B 4 9 5 2\t\t\t3bbbb4952\n"
+                "\t\t4 B B B 7 B 8 B B\t\t\t4bbb7b8bb\n"
+                "\t\t9 B B B B B B B 5\t   atau   \t9bbbbbbb5\n"
+                "\t\tB B 2 B 1 B B B 6\t\t\tbb2b1bbb6\n"
+                "\t\t1 2 3 7 B B B B 9\t\t\t1237bbbb9\n"
+                "\t\t6 B B B B B 4 B B\t\t\t6bbbbb4bb\n"
+                "\t\tB B B B 5 2 B B B\t\t\tbbbb52bbb\n\n\n\n";
+    }
+    gotoxy(5,17); cout<<"=====================================================================";
 }
 
 void Sudoku::output()
@@ -260,7 +267,7 @@ bool Sudoku:: isValid(const int &row,const int &col, const int &value)
 
 bool Sudoku:: valid(const vector<vector<int> > &thegrid, const int &row, const int &col, const int &val)
 {
-    if(thegrid.at(row).at(col)==val) 
+    if(thegrid.at(row).at(col)==val)
 		return true;
 	if(thegrid.at(row).at(col)!=INFINITY)
 		return false;
@@ -287,10 +294,9 @@ bool Sudoku:: valid(const vector<vector<int> > &thegrid, const int &row, const i
 bool Sudoku::cek_trio(const trio &sample)
 {
 	return isValid(sample.row,sample.col,sample.value);
-
 }
 
-//Validasi error 
+//Validasi error
 void Sudoku::error(const int &errorcode, const int &row, const int &col)
 {
 	cout<<"ERROR: ";
@@ -321,6 +327,8 @@ void Sudoku::error(const int &errorcode, const int &row, const int &col)
 //program utama
 int main(int argc, char *argv[])
 {
+    system("title SUDOKU SOLVER");
+    textcolor(GREEN);
 	while(true)
 	{
 		try
@@ -330,6 +338,9 @@ int main(int argc, char *argv[])
     		cout<<endl<<"PROCESSING . . ."<<endl<<endl;
     		if(game.initProcess())
     			game.output();
+            cout<<"   ========================================================================\n\n";
+            cout<<"\t\t\t   Tekan Enter untuk kembali";
+            system("pause > nul");
 		}
 		catch(out_of_range)
 		{
