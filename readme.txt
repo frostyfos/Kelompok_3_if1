@@ -13,9 +13,10 @@ sani Saefurochman (10112452)
 ---------------------------------------
 		update
 ---------------------------------------
-1. tambah gitignore (tinggal cek gitignore)
-2. bro tadi ane ke merge branch (buat commit sebelumnya bisa liat di daftar commit)
-3. ane nambahin fungsi sample (niru si dewa :p)
+1. Program sudah jadi, tinggal kalo ada 
+yang mau edit lagi/ubah tampilan mangga
+
+2. Bikin Paper
 
 
 *NOTE : yang make codeblocks kalo gabisa system("cls") tambah #include <stdlib.h>
